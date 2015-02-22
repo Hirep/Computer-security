@@ -1,18 +1,31 @@
 #include "Caesar.h"
 
-Caesar::Caesar(char** arguments)
+Caesar::Caesar(int argn,char** arguments)
 {
+		if (argn < 5)
+		{
+				cout << "Lack of arguments\n";
+				cin.get();
+				exit(EXIT_FAILURE);
+		}
 		regime = arguments[1];
+
 		key = atoi(arguments[2]);
+		if (key < 0)
+		{
+				key *= -1;
+		}
+
 		alphabetType = arguments[3];
 		if (alphabetType == "c")
 		{
-				activeAlphabet = alphabetCyrilic;
+				activeAlphabet = alphabetCyrillic;
 		}
 		else if (alphabetType == "l")
 		{
 				activeAlphabet = alphabetLatin;
 		}
+
 		input = arguments[4];
 		output = arguments[5];
 		
@@ -24,7 +37,7 @@ Caesar::Caesar(char** arguments)
 		{
 				if (key == 0)
 				{
-						BrootForce();
+						BruteForce();
 				}
 				else
 				{
@@ -33,28 +46,34 @@ Caesar::Caesar(char** arguments)
 		}
 }
 
-ifstream Caesar::openfile(string fileName)
+ifstream Caesar::openfileI(string fileName)
 {
 		ifstream file;
 		file.open(fileName, ios::in);
 		if (file.is_open() == false)
 		{
 				cout << "Unable to open input file\n";
+				cin.get();
 				exit(EXIT_FAILURE);
 		}
 		return file;
 }
-
-void Caesar::Encrypt()
+ofstream Caesar::openfileO(string fileName)
 {
-		fileI = openfile(input);
-		fileO.open(output, ios::out);
-
-		if (!fileO.is_open())
+		ofstream file;
+		file.open(fileName, ios::out);
+		if (file.is_open() == false)
 		{
 				cout << "Unable to open output file\n";
+				cin.get();
 				exit(EXIT_FAILURE);
 		}
+		return file;
+}
+void Caesar::Encrypt()
+{
+		fileI = openfileI(input);
+		fileO = openfileO(output);
 
 		char c = 0;
 		for (;;)
@@ -63,20 +82,14 @@ void Caesar::Encrypt()
 				if (fileI.eof() == true)
 						break;
 				c = activeAlphabet.at((activeAlphabet.find(c) + key) % activeAlphabet.length());
-				fileO.put(c);
+				fileO << c;
 		}
 		fileO.close();
 }
 void Caesar::Decrypt()
 {
-		fileI = openfile(input);
-		fileO.open(output, ios::out);
-
-		if (!fileO.is_open())
-		{
-				cout << "Unable to open output file\n";
-				exit(EXIT_FAILURE);
-		}
+		fileI = openfileI(input);
+		fileO = openfileO(output);
 
 		char c = 0;
 		int alphabetLength = activeAlphabet.length();
@@ -90,9 +103,34 @@ void Caesar::Decrypt()
 		}
 		fileO.close();
 }
-void Caesar::BrootForce()
+void Caesar::BruteForce()
 {
+		fileI = openfileI(input);
+		fileO = openfileO(output);
+		int alphabetLength = activeAlphabet.length();
 
+		while (key < alphabetLength)
+		{
+				auto beginning = fileI.tellg();
+				char c = 0;
+				fileO << "Iteration #" << key << endl;
+				for (;;)
+				{
+						c = fileI.get();
+						if (fileI.eof() == true)
+								break;
+						c = activeAlphabet.at((activeAlphabet.find(c) - key % alphabetLength + alphabetLength) % alphabetLength);
+						fileO.put(c);
+				}
+				fileO << endl;
+
+				fileI.clear();
+				fileI.seekg(0);
+				
+				key++;
+		}
+
+		fileO.close();
 }
 Caesar::~Caesar()
 {
