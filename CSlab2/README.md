@@ -12,7 +12,6 @@ How to use
 5.	"output path": file to output result of process
 
 	Key file
-To perform encryption using secret phrase write first line "p"
-Then write key phrase.
-To perform encryption using expression write first line "c"
-Then write coefficients separated by ',' (e.g. "1,-2,3" which will result 3x^2-2x+1 expression).
+	
+*	To perform encryption using secret phrase write first line "p". Then write key phrase.
+*	To perform encryption using expression write first line "c". Then write coefficients separated by ',' (e.g. "1,-2,3" which will result 3x^2-2x+1 expression).
