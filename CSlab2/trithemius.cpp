@@ -137,8 +137,6 @@ void Trithemius::Encrypt()
 								break;
 						j = position % KeyP.length();
 						c = activeAlphabet.at((activeAlphabet.find(c) + j) % activeAlphabet.length());
-
-						//c = activeAlphabet.at((activeAlphabet.find(c) + key) % activeAlphabet.length());
 						position++;
 						fileO << c;
 				}
@@ -175,7 +173,6 @@ void Trithemius::Decrypt()
 								break;
 						j = position % KeyP.length();
 						c = activeAlphabet.at((activeAlphabet.find(c) - j) % activeAlphabet.length());
-						//c = activeAlphabet.at((activeAlphabet.find(c) + key) % activeAlphabet.length());
 						position++;
 						fileO << c;
 				}
