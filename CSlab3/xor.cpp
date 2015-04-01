@@ -10,6 +10,7 @@ Xor::Xor(int argn, char** arguments)
 		}
 		
 		key = atoi(arguments[2]);
+		key = key > 100 ? 100 : key;
 		if (key < 0)
 		{
 				key *= -1;
