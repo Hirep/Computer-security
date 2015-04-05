@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Security.Cryptography;
+using System.IO;
 
 namespace CryptoBase
 {
@@ -77,4 +79,50 @@ namespace CryptoBase
             return PText;
         }
     }
+
+    public class DES : ICipher
+    {
+        private readonly String message;
+        private String fileInput, fileOutput;
+        private FileStream streamInput, streamOutput;
+        private DESCryptoServiceProvider cryptic = new DESCryptoServiceProvider();
+        
+        public DES(String Key, String InitializationVector, String fileInput, String fileOutput)
+        {
+            this.fileInput = fileInput;
+            this.fileOutput = fileOutput;
+            cryptic.Key = UTF8Encoding.UTF8.GetBytes(Key);
+            cryptic.IV = UTF8Encoding.UTF8.GetBytes(InitializationVector);
+            streamInput = new FileStream(this.fileInput, FileMode.Open, FileAccess.Read);
+            streamOutput = new FileStream(this.fileOutput, FileMode.Open, FileAccess.ReadWrite);
+        }
+        public String Encrypt(String filePathInput)
+        {
+            CryptoStream CS = new CryptoStream(streamOutput, cryptic.CreateEncryptor(), CryptoStreamMode.Write);
+            
+            byte[] bytearrayinput = new byte[streamInput.Length];
+            streamInput.Read(bytearrayinput, 0, bytearrayinput.Length);
+            CS.Write(bytearrayinput, 0, bytearrayinput.Length);
+            CS.Close();
+            streamInput.Close();
+            streamOutput.Close();
+
+            return "0";
+        }
+        public String Decrypt(String filePathInput)
+        {
+            CryptoStream CS = new CryptoStream(streamInput, cryptic.CreateDecryptor(), CryptoStreamMode.Read);
+            
+            byte[] bytearrayinput = new byte[streamInput.Length];
+            CS.Read(bytearrayinput, 0, bytearrayinput.Length);
+            streamOutput.Write(bytearrayinput, 0, bytearrayinput.Length);
+            CS.Close();
+            streamInput.Close();
+            streamOutput.Close();
+            
+            return "0";
+        }
+    }
+
+    
 }
