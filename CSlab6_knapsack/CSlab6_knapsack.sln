@@ -1,0 +1,28 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 2013
+VisualStudioVersion = 12.0.31101.0
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CSlab6_knapsack", "CSlab6_knapsack\CSlab6_knapsack.csproj", "{81DC5A6A-2031-4F61-A57B-F1A374547002}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CryptoBase.Net", "..\CryptoBase.Net\CryptoBase.Net.csproj", "{80D225A4-136B-4AAC-9000-F79ED0FAE467}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{81DC5A6A-2031-4F61-A57B-F1A374547002}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{81DC5A6A-2031-4F61-A57B-F1A374547002}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{81DC5A6A-2031-4F61-A57B-F1A374547002}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{81DC5A6A-2031-4F61-A57B-F1A374547002}.Release|Any CPU.Build.0 = Release|Any CPU
+		{80D225A4-136B-4AAC-9000-F79ED0FAE467}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{80D225A4-136B-4AAC-9000-F79ED0FAE467}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{80D225A4-136B-4AAC-9000-F79ED0FAE467}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{80D225A4-136B-4AAC-9000-F79ED0FAE467}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal
